@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Attendance Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      background-color: #e6e6e6;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transition: all 1s ease-in-out;
+      padding: 0;
+    }
+
+    #main-content {
+      text-align: center;
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 {
+      color: #003366;
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+    }
+    .college-logo {
+      width: 100px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 14px;
+      width: 100%;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+      background-color: #f9f9f9;
+    }
+
+    button {
+      padding: 12px 20px;
+      background-color: #004080;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      border-radius: 4px;
+      font-size: 1.2rem;
+    }
+
+    button:hover {
+      background-color: #003060;
+    }
+
+    #spinner {
+      display: none;
+      width: 50px;
+      height: 50px;
+      border: 6px solid #ccc;
+      border-top: 6px solid #004080;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-top: 20px; /* Added margin-top to position it properly */
+      position: absolute; /* Make it appear over the form */
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #hacked-screen {
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: black;
+      color: #0f0;
+      z-index: 999;
+      text-align: center;
+      padding-top: 20%;
+      font-size: 1.2rem;
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 red, -2px 0 blue; }
+      25% { text-shadow: -2px 0 green, 2px 0 red; }
+      50% { text-shadow: 2px 0 yellow, -2px 0 green; }
+      75% { text-shadow: -2px 0 blue, 2px 0 pink; }
+      100% { text-shadow: 2px 0 red, -2px 0 blue; }
+    }
+
+    #promo-screen {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      background: #0d0d0d;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .logo {
+      font-size: 4rem;
+      text-shadow: 0 0 20px #FF00FF, 0 0 30px #00FFFF;
+      color: #ffffff;
+      animation: fadeIn 2s ease-in-out forwards;
+      margin-top: 25vh;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Media Queries for Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      button {
+        font-size: 1rem;
+      }
+      .logo {
+        font-size: 3rem;
+      }
+      #main-content {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      button {
+        font-size: 0.9rem;
+      }
+      .logo {
+        font-size: 2.5rem;
+      }
+      #main-content {
+        padding: 15px;
+      }
+      #promo-screen {
+        padding: 15px;
+      }
+    }
+
+    /* Register Now button style with transparent background */
+    .register-btn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background-color: transparent;
+      color: #ffffff;
+      font-size: 1.2rem;
+      border-radius: 4px;
+      border: 2px solid #ffffff;
+      cursor: pointer;
+      text-align: center;
+      animation: fadeIn 2s ease-in-out forwards;
+      display: inline-block;
+      text-transform: uppercase;
+    }
+
+    .register-btn:hover {
+      background-color: #ffffff;
+      color: #0d0d0d;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="main-content">
+    <img src="kmcelogo.png" alt="College Logo" class="college-logo">
+    <h1>College Attendance Portal</h1>
+
+    <p>Enter your Roll Number</p>
+    <input type="text" id="rollInput" placeholder="e.g., 24P81A0000">
+    <button onclick="startHacking()">Submit</button>
+    <p style="font-size: 12px; color: #666; margin-top: 10px;">Authorized access only.</p>
+    <div id="spinner"></div> <!-- Spinner is inside the form -->
+  </div>
+
+  <div id="hacked-screen">
+    <p>System Breach...</p>
+    <p>Accessing core files...</p>
+    <p>Bypassing firewall...</p>
+    <p>Extracting meta-data...</p>
+  </div>
+
+  <div id="promo-screen">
+    <div id="particles-js"></div>
+    <h1 class="logo">TECHNOVATE '25</h1>
+    <p>Innovate. Create. Dominate.</p>
+    <!-- Register Now button with transparent background -->
+    <button class="register-btn" onclick="window.location.href='https://forms.gle/FwVVpMYHgsUUFKYA7'">Register Now</button>
+  </div>
+
+  <script>
+    function startHacking() {
+      const roll = document.getElementById('rollInput').value;
+      if (roll.trim() === "") {
+        alert("Please enter a valid roll number.");
+        return;
+      }
+
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('spinner').style.display = 'block'; // Show spinner
+
+      setTimeout(() => {
+        document.getElementById('spinner').style.display = 'none'; // Hide spinner
+        const hacked = document.getElementById('hacked-screen');
+        hacked.style.display = 'block';
+
+        setTimeout(() => {
+          hacked.style.display = 'none';
+          const promo = document.getElementById('promo-screen');
+          promo.style.display = 'block';
+
+          particlesJS("particles-js", {
+            particles: {
+              number: { value: 60, density: { enable: true, value_area: 800 } },
+              color: { value: ["#00ffff", "#ff00ff"] },
+              shape: { type: "circle" },
+              opacity: { value: 0.5 },
+              size: { value: 3 },
+              line_linked: {
+                enable: true,
+                distance: 150,
+                color: "#ffffff",
+                opacity: 0.4,
+                width: 1
+              },
+              move: {
+                enable: true,
+                speed: 2,
+                direction: "none",
+                random: true,
+                straight: false,
+                out_mode: "out",
+                bounce: false
+              }
+            },
+            interactivity: {
+              detect_on: "canvas",
+              events: {
+                onhover: { enable: true, mode: "grab" },
+                onclick: { enable: true, mode: "push" },
+                resize: true
+              },
+              modes: {
+                grab: { distance: 140, line_linked: { opacity: 1 } },
+                push: { particles_nb: 4 }
+              }
+            },
+            retina_detect: true
+          });
+
+        }, 4000);
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
